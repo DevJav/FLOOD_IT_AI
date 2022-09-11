@@ -107,14 +107,12 @@ def update_canvas():
     for i in range(board_size):
         for j in range(board_size):
             if (i, j) not in owned_tiles:
-                canvas.create_rectangle(i * rectangle_size, j * rectangle_size, i * rectangle_size + 50, j * rectangle_size + 50, fill=colors[board[i][j]], width=0)
+                canvas.create_rectangle(i * rectangle_size, j * rectangle_size, i * rectangle_size + rectangle_size, j * rectangle_size + rectangle_size, fill=colors[board[i][j]], width=0)
     canvas.update()
     # check if game is over
     root.after(speed, calculate)
 
 while True:
-    speed = 1
-    rectangle_size = 50
     # THEMES:
     # Basic
     colors = ["red", "orange", "yellow", "green", "blue", "purple"]
@@ -125,8 +123,10 @@ while True:
     owned_tiles = [(0,0)]
     frontier_tiles = owned_tiles
 
+    speed = 250
     n_colors = 6
-    board_size = 25
+    board_size = 100
+    rectangle_size = 10
     board = [[random.randint(0, n_colors - 1) for _ in range(board_size)] for _ in range(board_size)]
     print_board(board)
     append_new_tiles(board, owned_tiles, board[0][0])
@@ -137,7 +137,7 @@ while True:
     canvas.pack()
     for i in range(board_size):
         for j in range(board_size):
-            canvas.create_rectangle(i * rectangle_size, j * rectangle_size, i * rectangle_size + 50, j * rectangle_size + 50, fill=colors[board[i][j]], width=0)
+            canvas.create_rectangle(i * rectangle_size, j * rectangle_size, i * rectangle_size + rectangle_size, j * rectangle_size + rectangle_size, fill=colors[board[i][j]], width=0)
     button = tkinter.Button(root, text="Continue", command=update_canvas)
     button.pack()
     button = tkinter.Button(root, text="Calculate", command=calculate)
